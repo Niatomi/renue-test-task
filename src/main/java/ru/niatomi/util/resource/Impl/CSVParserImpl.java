@@ -36,9 +36,9 @@ public class CSVParserImpl implements CSVParser {
             while ((line = bufferedReader.readLine()) != null) {
                 String checkingColumn = line.replace("\\", "/").split(delimiter)[fieldNumber];
                 if (checkingColumn.toLowerCase().startsWith(query, checkingColumn.startsWith("\"") ? 1 : 0)) {
-                    if (cache.containsKey(checkingColumn)) {
+                    if (checkingColumn != "/N" & cache.containsKey(checkingColumn)) {
                         AirportData airportData = new AirportData(checkingColumn, cache.get(checkingColumn).get());
-                        bufferedReader.skip(line.length() + 1);
+                        bufferedReader.skip(1);
                         parsedData.add(airportData);
                     } else {
                         cache.put(checkingColumn, line);
